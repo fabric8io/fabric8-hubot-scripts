@@ -32,7 +32,7 @@ fabric8GetPods = (msg) ->
           results = []
           data = JSON.parse(body)
           for items in data.items
-            results.push (items.id + " - ")
+            results.push (items.id + "\n")
 
           msg.reply "Pods: #{results}"
 
