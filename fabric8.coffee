@@ -20,7 +20,7 @@ fabric8GetPods = (msg) ->
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     host = process.env.KUBERNETES_SERVICE_HOST
     port = process.env.KUBERNETES_SERVICE_PORT
-    path = "https://#{host}:#{port}/api/v1beta2/pods"
+    path = "https://#{host}:#{port}/api/v1beta2/pods?namespace=default"
 
     req = msg.http(path)
 
