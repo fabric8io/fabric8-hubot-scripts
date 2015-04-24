@@ -16,36 +16,15 @@
 # Author:
 #   fabric8.io
 
-
-
 checkRoomExists: (id) ->
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  options = 
-    protocol: LCB_PROTOCOL
-    hostname: LCB_HOSTNAME
-    port: LCB_PORT
-    path: '/rooms'
-    query:
-      token: LCB_TOKEN
-      
-    http.get {
-      protocol: LCB_PROTOCOL
-      hostname: LCB_HOSTNAME
-      port: LCB_PORT
-      path: '/rooms'
-      query:
-        token: LCB_TOKEN
-    }, (res) ->
-      # Do stuff with response
-
-      if 200 <= res.statusCode < 400 # Or, not an error code.
-        results = []
-        data = JSON.parse(body)
-        console.log
-
-        else
-          console.log "fabric8 says: #{res.statusCode} #{body}"
-
+    
+  http.get('http://172.30.17.149/rooms', (res) ->
+    console.log 'Got response: ' + res.statusCode
+    return
+  ).on 'error', (e) ->
+    console.log 'Got error: ' + e.message
+    return
 
 module.exports = (robot) ->
 
@@ -56,6 +35,3 @@ module.exports = (robot) ->
     message = req.body.message
     robot.messageRoom room, message
     res.end()
-
-  robot.respond /get pods/i, (msg) ->
-    fabric8GetPods msg, msg.match[1]
