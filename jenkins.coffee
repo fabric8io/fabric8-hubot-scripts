@@ -273,10 +273,10 @@ module.exports = (robot) ->
   robot.respond /j(?:enkins)? build ([\w\.\-_ ]+)(, (.+))?/i, (msg) ->
     jenkinsBuild(msg, false)
 
-  robot.respond /j(?:enkins)? proceed job ([\w\.\-_ ]+)(, (.+) build number (\d+))/i, (msg) ->
+  robot.respond /j(?:enkins)? proceed job (.*) build (.*)?/i, (msg) ->
     jenkinsProceed(msg, false)
 
-  robot.respond /j(?:enkins)? abort job ([\w\.\-_ ]+)(, (.+) build number (\d+))/i, (msg) ->
+  robot.respond /j(?:enkins)? abort job ([\w\.\-_ ]+)(, (.+) build number (\d+))?/i, (msg) ->
     jenkinsAbort(msg, false)
 
   robot.respond /j(?:enkins)? b (\d+)/i, (msg) ->
