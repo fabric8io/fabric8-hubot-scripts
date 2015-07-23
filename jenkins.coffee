@@ -11,12 +11,14 @@
 #   Auth should be in the "user:password" format.
 #
 # Commands:
+#   hubot jenkins abort job <job> build <buildNumber> - aborts the given job that is paused, waiting on user input
 #   hubot jenkins b <jobNumber> - builds the job specified by jobNumber. List jobs to get number.
 #   hubot jenkins build <job> - builds the specified Jenkins job
 #   hubot jenkins build <job>, <params> - builds the specified Jenkins job with parameters as key=value&key2=value2
-#   hubot jenkins list <filter> - lists Jenkins jobs
 #   hubot jenkins describe <job> - Describes the specified Jenkins job
 #   hubot jenkins last <job> - Details about the last build for the specified Jenkins job
+#   hubot jenkins list <filter> - lists Jenkins jobs
+#   hubot jenkins proceed job <job> build <buildNumber> - aborts the given job that is paused, waiting on user input
 
 #
 # Author:
@@ -69,9 +71,10 @@ jenkinsProceed = (msg, buildWithEmptyParameters) ->
     url = process.env.HUBOT_JENKINS_URL
     job = querystring.escape msg.match[1]
     buildId = querystring.escape msg.match[2]
+    inputId = 'Promote'
     params = msg.match[3]
     command = if buildWithEmptyParameters then "buildWithParameters" else "build"
-    path = "#{url}/job/#{job}/#{buildId}/input/ApprovePromote/proceedEmpty"
+    path = "#{url}/job/#{job}/#{buildId}/input/#{inputId}/proceedEmpty"
 
     req = msg.http(path)
 
@@ -96,9 +99,10 @@ jenkinsAbort = (msg, buildWithEmptyParameters) ->
     url = process.env.HUBOT_JENKINS_URL
     job = querystring.escape msg.match[1]
     buildId = querystring.escape msg.match[2]
+    inputId = 'Promote'
     params = msg.match[3]
     command = if buildWithEmptyParameters then "buildWithParameters" else "build"
-    path = "#{url}/job/#{job}/#{buildId}/input/ApprovePromote/abort"
+    path = "#{url}/job/#{job}/#{buildId}/input/#{inputId}/abort"
 
     req = msg.http(path)
 
